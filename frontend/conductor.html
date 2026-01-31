@@ -1,0 +1,22 @@
+<h3>Conductor Panel</h3>
+
+<input id="uid" placeholder="RFID UID">
+<input id="fare" placeholder="Fare">
+
+<button onclick="scan()">Scan Card</button>
+
+<script>
+    async function scan() {
+        const res = await fetch("http://localhost:5000/api/rfid/scan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                uid: uid.value,
+                fare: fare.value
+            })
+        });
+
+        const data = await res.json();
+        alert(JSON.stringify(data));
+    }
+</script>
