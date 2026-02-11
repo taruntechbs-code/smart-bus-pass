@@ -1,101 +1,43 @@
 const express = require("express");
-const router = express.Router();
-
 const Wallet = require("../models/Wallet");
 const Transaction = require("../models/Transaction");
-const auth = require("../middleware/authMiddleware");
 
-// ===============================
-// GET WALLET BALANCE
-// ===============================
-router.get("/balance", auth, async (req, res) => {
-    try {
-        let wallet = await Wallet.findOne({ userId: req.user.id });
+const router = express.Router();
 
-        if (!wallet) {
-            wallet = await Wallet.create({ userId: req.user.id });
-        }
+/**
+ * MOCK TOP-UP (UPI Simulation)
+ */
+router.post("/topup", async (req, res) => {
+  try {
+    const { userId, amount } = req.body;
 
-        res.json({
-            balance: wallet.balance
-        });
-    } catch (err) {
-        res.status(500).json({ msg: "Server error" });
+    if (!userId || !amount || amount <= 0) {
+      return res.status(400).json({ message: "Invalid request" });
     }
-});
 
-// ===============================
-// RECHARGE WALLET
-// ===============================
-router.post("/recharge", auth, async (req, res) => {
-    try {
-        const { amount } = req.body;
+    let wallet = await Wallet.findOne({ userId });
 
-        if (!amount || amount <= 0) {
-            return res.status(400).json({ msg: "Invalid amount" });
-        }
-
-        let wallet = await Wallet.findOne({ userId: req.user.id });
-
-        if (!wallet) {
-            wallet = await Wallet.create({ userId: req.user.id });
-        }
-
-        wallet.balance += amount;
-        wallet.lastUpdated = new Date();
-        await wallet.save();
-
-        await Transaction.create({
-            userId: req.user.id,
-            type: "RECHARGE",
-            amount,
-            balanceAfter: wallet.balance
-        });
-
-        res.json({
-            msg: "Wallet recharged successfully",
-            balance: wallet.balance
-        });
-    } catch (err) {
-        res.status(500).json({ msg: "Server error" });
+    if (!wallet) {
+      wallet = new Wallet({ userId, balance: 0 });
     }
-});
 
-// ===============================
-// DEDUCT FARE (CONDUCTOR)
-// ===============================
-router.post("/deduct", auth, async (req, res) => {
-    try {
-        const { passengerId, fare } = req.body;
+    wallet.balance += amount;
+    await wallet.save();
 
-        if (!passengerId || !fare) {
-            return res.status(400).json({ msg: "Missing fields" });
-        }
+    await Transaction.create({
+      userId,
+      type: "CREDIT",
+      amount,
+      description: "Mock UPI Top-Up"
+    });
 
-        let wallet = await Wallet.findOne({ userId: passengerId });
-
-        if (!wallet || wallet.balance < fare) {
-            return res.status(400).json({ msg: "Insufficient balance" });
-        }
-
-        wallet.balance -= fare;
-        wallet.lastUpdated = new Date();
-        await wallet.save();
-
-        await Transaction.create({
-            userId: passengerId,
-            type: "DEBIT",
-            amount: fare,
-            balanceAfter: wallet.balance
-        });
-
-        res.json({
-            msg: "Fare deducted successfully",
-            balance: wallet.balance
-        });
-    } catch (err) {
-        res.status(500).json({ msg: "Server error" });
-    }
+    res.json({
+      status: "SUCCESS",
+      balance: wallet.balance
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Top-up failed" });
+  }
 });
 
 module.exports = router;
