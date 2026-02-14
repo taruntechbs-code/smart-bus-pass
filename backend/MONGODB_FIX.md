@@ -146,3 +146,27 @@ MONGO_URI=mongodb+srv://myuser:****@cluster0.xxxxx.mongodb.net/buspass?retryWrit
 3. **Missing `+srv` in connection string**
 
 Try these three first!
+
+
+---
+
+## Development Database Cleanup
+
+If you encounter encryption errors, clean the database and re-register users:
+
+### Method 1: MongoDB Shell
+```javascript
+use smartbuspass
+db.users.deleteMany({})
+db.wallets.deleteMany({})
+db.transactions.deleteMany({})
+```
+
+### Method 2: MongoDB Compass
+1. Connect to your local MongoDB
+2. Select `smartbuspass` database
+3. Delete all documents from `users`, `wallets`, and `transactions` collections
+
+⚠️ **WARNING:** Only use in development! Never run in production!
+
+After cleanup, restart the server and register fresh users.

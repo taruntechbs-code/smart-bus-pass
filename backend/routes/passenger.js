@@ -1,7 +1,7 @@
 const express = require("express");
-const authMiddleware = require("../middleware/auth");
+const authMiddleware = require("../middleware/authMiddleware");
 const User = require("../models/User");
-const { decrypt } = require("../utils/encryption");
+const { decryptData } = require("../utils/encryption");
 
 const router = express.Router();
 
@@ -18,14 +18,18 @@ router.get("/profile", authMiddleware, async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
+        // Decrypt RFID safely
+        let decryptedRfid = null;
+        if (user.rfid_uid) decryptedRfid = decryptData(user.rfid_uid);
+
         res.json({
             id: user._id,
             name: user.name,
-            email: decrypt(user.email),
-            phone: decrypt(user.phone),
+            email: decryptData(user.email),
+            phone: decryptData(user.phone), // assuming phone is encrypted
             role: user.role,
             wallet_balance: user.wallet_balance,
-            rfid_uid: user.rfid_uid
+            rfid_uid: decryptedRfid
         });
     } catch (err) {
         console.error("Get passenger profile error:", err);
@@ -46,9 +50,12 @@ router.get("/wallet", authMiddleware, async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
+        let decryptedRfid = null;
+        if (user.rfid_uid) decryptedRfid = decryptData(user.rfid_uid);
+
         res.json({
             balance: user.wallet_balance || 0,
-            rfid_uid: user.rfid_uid
+            rfid_uid: decryptedRfid
         });
     } catch (err) {
         console.error("Get wallet error:", err);
@@ -63,7 +70,7 @@ router.get("/trips", authMiddleware, async (req, res) => {
             return res.status(403).json({ error: "Access denied. Passenger only." });
         }
 
-        // Mock trip data for now (you can connect to a Trips model later)
+        // Mock trip data
         const trips = [
             {
                 id: 1,

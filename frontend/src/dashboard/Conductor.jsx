@@ -6,16 +6,19 @@ import Particles from "../components/Particles";
 import DashboardSection from "../components/DashboardSection";
 import StatCard from "../components/StatCard";
 import ActionButton from "../components/ActionButton";
-import { FaQrcode, FaUsers, FaMoneyBillWave, FaCheckCircle } from "react-icons/fa";
+import { FaQrcode, FaUsers, FaMoneyBillWave, FaCheckCircle, FaExclamationTriangle, FaTimesCircle } from "react-icons/fa";
 import { useAuth } from "../context/Authcontext";
 import { conductorAPI } from "../api/api";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { io } from "socket.io-client";
+
+// Initialize Socket.IO connection
+const socket = io("http://localhost:5000"); // Adjust URL if deployed
 
 export default function Conductor() {
     const { user, loading: authLoading } = useAuth();
     const navigate = useNavigate();
-    const [lastScan, setLastScan] = useState("Not scanned yet");
-    const [scanning, setScanning] = useState(false);
+    const [lastScan, setLastScan] = useState(null);
     const [stats, setStats] = useState({
         scans_today: 0,
         total_collected: 0,
@@ -37,6 +40,40 @@ export default function Conductor() {
         }
     }, [user]);
 
+    // 🔌 Socket.IO Listener
+    useEffect(() => {
+        socket.on("connect", () => {
+            console.log("🟢 Connected to Socket.IO Server");
+        });
+
+        socket.on("rfidScan", (data) => {
+            console.log("📡 RFID Scan Received:", data);
+            setLastScan(data);
+
+            // Update local stats immediately
+            if (data.status === "SUCCESS") {
+                setStats(prev => ({
+                    ...prev,
+                    scans_today: prev.scans_today + 1,
+                    total_collected: prev.total_collected + data.fare
+                }));
+                // Add to recent scans list
+                setScans(prev => [{
+                    id: Date.now(),
+                    passenger_uid: data.uid, // Or name if available?
+                    passenger_name: data.name,
+                    time: new Date().toLocaleTimeString(),
+                    amount: data.fare
+                }, ...prev]);
+            }
+        });
+
+        return () => {
+            socket.off("connect");
+            socket.off("rfidScan");
+        };
+    }, []);
+
     const fetchDashboardData = async () => {
         try {
             setDashboardLoading(true);
@@ -54,19 +91,6 @@ export default function Conductor() {
         } finally {
             setDashboardLoading(false);
         }
-    };
-
-    const handleScan = () => {
-        setScanning(true);
-        setTimeout(() => {
-            // Simulate RFID scan
-            const mockUID = Math.random().toString(36).substring(2, 10).toUpperCase();
-            setLastScan(mockUID);
-            setScanning(false);
-
-            // In real implementation, you would call:
-            // conductorAPI.scanPassenger(rfid_uid, fare)
-        }, 1500);
     };
 
     if (authLoading) return null; // Or a splash screen
@@ -97,48 +121,67 @@ export default function Conductor() {
                         <DashboardSection>
                             <div className="welcome-section">
                                 <h1 className="dashboard-title">Welcome, {user?.name}!</h1>
-                                <p className="dashboard-subtitle">Scan passenger RFID and manage fares</p>
+                                <p className="dashboard-subtitle">Live RFID Scanner Terminal</p>
                             </div>
                         </DashboardSection>
 
-                        {/* Scan Interface */}
-                        <DashboardSection title="RFID Scan Interface" glass>
-                            <div className="scan-interface">
-                                <motion.div
-                                    className="scan-status"
-                                    whileHover={{ scale: 1.02 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    <motion.div
-                                        animate={scanning ? { rotate: 360 } : { rotate: 0 }}
-                                        transition={{ duration: 1, repeat: scanning ? Infinity : 0, ease: "linear" }}
-                                    >
-                                        <FaQrcode className="scan-icon" />
-                                    </motion.div>
-                                    <p className="scan-label">Last Scanned UID</p>
-                                    <p className="scan-uid">{lastScan}</p>
-                                </motion.div>
+                        {/* 📡 Live Scan Interface */}
+                        <DashboardSection title="Live Scan Feed" glass>
+                            <div className="scan-interface" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+                                <AnimatePresence mode="wait">
+                                    {lastScan ? (
+                                        <motion.div
+                                            key={lastScan.timestamp} // Key changes on new scan
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.9 }}
+                                            className="scan-result-card"
+                                            style={{
+                                                background: lastScan.status === "SUCCESS" ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)",
+                                                border: `1px solid ${lastScan.status === "SUCCESS" ? "#10b981" : "#ef4444"}`,
+                                                padding: '2rem',
+                                                borderRadius: '20px',
+                                                width: '100%',
+                                                maxWidth: '500px',
+                                                textAlign: 'center',
+                                                boxShadow: `0 0 30px ${lastScan.status === "SUCCESS" ? "rgba(16, 185, 129, 0.3)" : "rgba(239, 68, 68, 0.3)"}`
+                                            }}
+                                        >
+                                            <div style={{ fontSize: '3rem', marginBottom: '10px' }}>
+                                                {lastScan.status === "SUCCESS" ? <FaCheckCircle color="#10b981" /> :
+                                                    lastScan.status === "LOW_BALANCE" ? <FaExclamationTriangle color="#f59e0b" /> :
+                                                        <FaTimesCircle color="#ef4444" />}
+                                            </div>
 
-                                <ActionButton
-                                    icon={FaCheckCircle}
-                                    variant="primary"
-                                    onClick={handleScan}
-                                    style={{
-                                        width: '100%',
-                                        maxWidth: '400px',
-                                        margin: '0 auto',
-                                        padding: '16px 32px',
-                                        fontSize: '1.1rem',
-                                        background: scanning
-                                            ? 'linear-gradient(90deg, #10b981, #059669)'
-                                            : 'linear-gradient(90deg, #3b82f6, #2563eb)',
-                                        boxShadow: scanning
-                                            ? '0 0 30px rgba(16, 185, 129, 0.5)'
-                                            : '0 0 30px rgba(59, 130, 246, 0.5)',
-                                    }}
-                                >
-                                    {scanning ? "Scanning..." : "Start Scan"}
-                                </ActionButton>
+                                            <h2 style={{ color: 'white', marginBottom: '5px' }}>
+                                                {lastScan.status === "SUCCESS" ? "Scan Successful" :
+                                                    lastScan.status === "LOW_BALANCE" ? "Low Balance" : "Scan Failed"}
+                                            </h2>
+
+                                            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.2rem', margin: '10px 0' }}>
+                                                UID: <span style={{ fontFamily: 'monospace', color: '#fff' }}>{lastScan.uid}</span>
+                                            </p>
+
+                                            {lastScan.name && (
+                                                <p style={{ color: '#60a5fa', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                                                    {lastScan.name}
+                                                </p>
+                                            )}
+
+                                            {lastScan.status === "SUCCESS" && (
+                                                <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(255,255,255,0.1)', borderRadius: '10px' }}>
+                                                    <p style={{ color: 'rgba(255,255,255,0.8)' }}>Fare Deducted: <span style={{ color: '#f87171' }}>-₹{lastScan.fare}</span></p>
+                                                    <p style={{ color: 'rgba(255,255,255,0.8)' }}>New Balance: <span style={{ color: '#10b981' }}>₹{lastScan.balance}</span></p>
+                                                </div>
+                                            )}
+                                        </motion.div>
+                                    ) : (
+                                        <div style={{ textAlign: 'center', padding: '40px', color: 'rgba(255,255,255,0.5)' }}>
+                                            <FaQrcode size={50} style={{ marginBottom: '15px', opacity: 0.5 }} />
+                                            <p>Waiting for RFID Scan...</p>
+                                        </div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         </DashboardSection>
 
@@ -189,13 +232,13 @@ export default function Conductor() {
                                     scans.slice(0, 5).map((scan, index) => (
                                         <motion.div
                                             className="scan-item"
-                                            key={scan.id}
+                                            key={scan.id || index}
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: index * 0.1 }}
                                         >
                                             <div className="scan-info">
-                                                <p className="scan-passenger">UID: {scan.passenger_uid}</p>
+                                                <p className="scan-passenger">{scan.passenger_name || `UID: ${scan.passenger_uid}`}</p>
                                                 <p className="scan-time">{scan.time}</p>
                                             </div>
                                             <p className="scan-amount">₹{scan.amount}</p>

@@ -1,31 +1,38 @@
-const crypto = require("crypto");
+const CryptoJS = require("crypto-js");
 
-const algorithm = "aes-256-cbc";
-const secretKey = Buffer.from(process.env.ENCRYPTION_KEY);
-const ivLength = 16;
+const AES_SECRET = process.env.AES_SECRET;
 
-// Encrypt function
-function encrypt(text) {
-  const iv = crypto.randomBytes(ivLength);
-  const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
-
-  let encrypted = cipher.update(text, "utf8", "hex");
-  encrypted += cipher.final("hex");
-
-  return iv.toString("hex") + ":" + encrypted;
+if (!AES_SECRET) {
+  console.error("⚠️ WARNING: AES_SECRET is missing in .env. Encryption will fail.");
 }
 
-// Decrypt function
-function decrypt(text) {
-  const parts = text.split(":");
-  const iv = Buffer.from(parts[0], "hex");
-  const encryptedText = parts[1];
+const encryptData = (text) => {
+  if (!text) return null;
+  if (!AES_SECRET) throw new Error("AES_SECRET is not defined");
+  return CryptoJS.AES.encrypt(text, AES_SECRET).toString();
+};
 
-  const decipher = crypto.createDecipheriv(algorithm, secretKey, iv);
-  let decrypted = decipher.update(encryptedText, "hex", "utf8");
-  decrypted += decipher.final("utf8");
+const decryptData = (cipher) => {
+  if (!cipher) return null;
+  if (!AES_SECRET) throw new Error("AES_SECRET is not defined");
+  try {
+    const bytes = CryptoJS.AES.decrypt(cipher, AES_SECRET);
+    const originalText = bytes.toString(CryptoJS.enc.Utf8);
+    if (!originalText) {
+      console.log("⚠️ Safe Decrypt Skip (Not Encrypted Yet)");
+      return cipher;
+    }
+    return originalText;
+  } catch (error) {
+    console.log("⚠️ Safe Decrypt Skip (Not Encrypted Yet)");
+    return cipher;
+  }
+};
 
-  return decrypted;
-}
+// SHA256 Hash for searchable fields (deterministic)
+const hashData = (text) => {
+  if (!text) return null;
+  return CryptoJS.SHA256(text).toString();
+};
 
-module.exports = { encrypt, decrypt };
+module.exports = { encryptData, decryptData, hashData };

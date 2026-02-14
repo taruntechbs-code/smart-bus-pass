@@ -4,47 +4,58 @@ const UserSchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true
+            required: true,
+            trim: true,
         },
 
         phone: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
         },
 
         email: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            // lowercase: true, // ❌ REMOVED: Corrupts encrypted data
+            // trim: true, // ❌ REMOVED: Corrupts encrypted data
         },
 
         password: {
             type: String,
-            required: true
+            required: true,
         },
 
         role: {
             type: String,
             enum: ["passenger", "conductor"],
-            required: true
+            required: true,
         },
 
+        // ✅ RFID UID (Encrypted)
         rfid_uid: {
             type: String,
-            default: null
+            default: undefined, // ✅ DO NOT STORE NULL
+        },
+
+        // ✅ RFID Hash (Searchable)
+        rfid_uid_hash: {
+            type: String,
+            unique: true,
+            sparse: true,
+            default: undefined, // ✅ FIX: undefined instead of null
         },
 
         wallet_balance: {
             type: Number,
-            default: 0
+            default: 0,
         },
 
         isBlocked: {
             type: Boolean,
-            default: false
-        }
-        
+            default: false,
+        },
     },
     { timestamps: true }
 );

@@ -2,21 +2,66 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const http = require("http");
+const { Server } = require("socket.io");
 
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+
+// Initialize Socket.IO
+const io = new Server(server, {
+    cors: {
+        origin: "*", // Allow all origins for development
+        methods: ["GET", "POST"]
+    }
+});
+
+// Export io to be used in routes
+app.set("io", io);
+
+/* ---------------- SECURITY MIDDLEWARE ---------------- */
+// 1. Helmet for secure headers
+app.use(helmet());
+app.disable("x-powered-by"); // Extra safety
+
+// 2. HTTPS Redirect (Production Only)
+if (process.env.NODE_ENV === "production") {
+    app.use((req, res, next) => {
+        if (req.headers["x-forwarded-proto"] !== "https") {
+            return res.redirect(`https://${req.headers.host}${req.url}`);
+        }
+        next();
+    });
+}
+
+// 3. Rate Limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: "Too many requests from this IP, please try again later.",
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+// Apply rate limiting to critical routes
+app.use("/api/auth", limiter);
+app.use("/api/payment", limiter);
 
 /* ---------------- MIDDLEWARE ---------------- */
-app.use(cors());
+app.use(cors()); // Configure strict CORS if needed, default is * which is ok for dev
 app.use(express.json());
 
 /* ---------------- ROUTES ---------------- */
 const authRoutes = require("./routes/auth");
 const walletRoutes = require("./routes/wallet");
-const rfidRoutes = require("./routes/rfid");
+const rfidRoutes = require("./routes/rfidRoutes");
 const passengerRoutes = require("./routes/passenger");
 const conductorRoutes = require("./routes/conductor");
+const paymentRoutes = require("./routes/payment");
 
 /* ---------------- ROUTE MAPPING ---------------- */
 app.use("/api/auth", authRoutes);
@@ -24,6 +69,7 @@ app.use("/api/wallet", walletRoutes);
 app.use("/api/rfid", rfidRoutes);
 app.use("/api/passenger", passengerRoutes);
 app.use("/api/conductor", conductorRoutes);
+app.use("/api/payment", paymentRoutes);
 
 /* ---------------- ROOT TEST ---------------- */
 app.get("/", (req, res) => {
@@ -47,7 +93,8 @@ mongoose
     .connect(MONGO_URI, mongoOptions)
     .then(() => {
         console.log("✅ MongoDB Connected Successfully");
-        app.listen(PORT, () => {
+        // Use server.listen instead of app.listen
+        server.listen(PORT, () => {
             console.log(`🚀 Server running on http://localhost:${PORT}`);
         });
     })
@@ -68,4 +115,13 @@ mongoose
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: "Internal Server Error" });
+});
+
+/* ---------------- SOCKET.IO EVENTS ---------------- */
+io.on("connection", (socket) => {
+    console.log("🔌 New client connected:", socket.id);
+
+    socket.on("disconnect", () => {
+        console.log("❌ Client disconnected:", socket.id);
+    });
 });

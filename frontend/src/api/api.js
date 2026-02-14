@@ -65,6 +65,8 @@ export const passengerAPI = {
     getWallet: () => api.get("/passenger/wallet"),
     getTrips: () => api.get("/passenger/trips"),
     recharge: (amount) => api.post("/passenger/recharge", { amount }),
+    linkRFID: (uid) => api.post("/rfid/link", { uid }),
+    linkRFIDByScan: (uid) => api.post("/rfid/link-scan", { uid }),
 };
 
 // Conductor API helpers
@@ -73,6 +75,13 @@ export const conductorAPI = {
     getScans: () => api.get("/conductor/scans"),
     getStats: () => api.get("/conductor/stats"),
     scanPassenger: (rfid_uid, fare) => api.post("/conductor/scan", { rfid_uid, fare }),
+};
+
+
+// Payment API helpers (Razorpay)
+export const paymentAPI = {
+    createOrder: (amount) => api.post("/payment/create-order", { amount }),
+    verifyPayment: (data) => api.post("/payment/verify-payment", data),
 };
 
 export default api;

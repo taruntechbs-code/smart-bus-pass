@@ -1,7 +1,7 @@
 const express = require("express");
-const authMiddleware = require("../middleware/auth");
+const authMiddleware = require("../middleware/authMiddleware"); // Note: renamed from auth to authMiddleware in Step 2/3
 const User = require("../models/User");
-const { decrypt } = require("../utils/encryption");
+const { decryptData, hashData } = require("../utils/encryption");
 
 const router = express.Router();
 
@@ -21,8 +21,8 @@ router.get("/profile", authMiddleware, async (req, res) => {
         res.json({
             id: user._id,
             name: user.name,
-            email: decrypt(user.email),
-            phone: decrypt(user.phone),
+            email: decryptData(user.email),
+            phone: decryptData(user.phone),
             role: user.role
         });
     } catch (err) {
@@ -38,7 +38,7 @@ router.get("/scans", authMiddleware, async (req, res) => {
             return res.status(403).json({ error: "Access denied. Conductor only." });
         }
 
-        // Mock scan data for now (you can connect to a Scans model later)
+        // Mock scan data - unchanged
         const scans = [
             {
                 id: 1,
@@ -77,7 +77,6 @@ router.get("/stats", authMiddleware, async (req, res) => {
             return res.status(403).json({ error: "Access denied. Conductor only." });
         }
 
-        // Mock stats for now
         const stats = {
             scans_today: 24,
             total_collected: 420,
@@ -104,8 +103,10 @@ router.post("/scan", authMiddleware, async (req, res) => {
             return res.status(400).json({ error: "RFID UID and fare required" });
         }
 
-        // Find passenger by RFID
-        const passenger = await User.findOne({ rfid_uid });
+        // Find passenger by HASHED RFID
+        // IMPORTANT: The input `rfid_uid` is the raw UID scanned.
+        const hashedUid = hashData(rfid_uid);
+        const passenger = await User.findOne({ rfid_uid_hash: hashedUid });
 
         if (!passenger) {
             return res.status(404).json({ error: "Passenger not found" });
