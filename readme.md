@@ -93,10 +93,8 @@ ESP32_DEVICE_KEY=BUSPASS_ESP32_KEY_2026
 ```bash
 git clone https://github.com/yourusername/smart-bus-pass.git
 cd smart-bus-pass
-
-
----
 ```
+
 ### 2️⃣ Backend Setup
 ```bash
 cd backend
@@ -105,8 +103,9 @@ npm start
 ```
 
 Backend runs at:  
+```bash
 **http://localhost:5000**
-
+```
 ---
 
 ### 3️⃣ Frontend Setup
@@ -117,9 +116,9 @@ npm run dev
 ```
 
 Frontend runs at:  
+```bash
 **http://localhost:5173**
-
----
+```
 
 ## 📡 RFID + ESP32 Setup
 
