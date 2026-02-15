@@ -96,7 +96,7 @@ cd smart-bus-pass
 
 
 ---
-
+```
 ### 2️⃣ Backend Setup
 ```bash
 cd backend
