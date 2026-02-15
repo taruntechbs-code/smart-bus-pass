@@ -85,6 +85,7 @@ RAZORPAY_KEY_ID=your_razorpay_test_key
 RAZORPAY_KEY_SECRET=your_razorpay_secret
 
 ESP32_DEVICE_KEY=BUSPASS_ESP32_KEY_2026
+```
 
 ## 🛠️ Installation & Setup
 
@@ -92,7 +93,7 @@ ESP32_DEVICE_KEY=BUSPASS_ESP32_KEY_2026
 ```bash
 git clone https://github.com/yourusername/smart-bus-pass.git
 cd smart-bus-pass
-```
+
 
 ---
 
