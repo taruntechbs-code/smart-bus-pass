@@ -82,6 +82,7 @@ RAZORPAY_KEY_ID=your_razorpay_test_key
 RAZORPAY_KEY_SECRET=your_razorpay_secret
 
 ESP32_DEVICE_KEY=BUSPASS_ESP32_KEY_2026
+```
 🛠️ Installation & Setup
 1️⃣ Clone Repository
 bash
@@ -92,35 +93,50 @@ bash
 cd backend
 npm install
 npm start
-Backend runs at 👉 http://localhost:5000
+Backend runs at
+👉 http://localhost:5000
 
 3️⃣ Frontend Setup
 bash
 cd frontend
 npm install
 npm run dev
-Frontend runs at 👉 http://localhost:5173
+Frontend runs at
+👉 http://localhost:5173
 
 📡 RFID + ESP32 Setup
 Open your Arduino code for the ESP32.
 
-Update backend API URL:
+Update the backend API endpoint:
 
 cpp
 const char* serverUrl = "http://192.168.xx.xx:5000/api/rfid/scan";
-Connect MFRC522 RFID Reader to ESP32 pins.
+Connect MFRC522 RFID Reader module to the ESP32.
 
 Flash the code using Arduino IDE.
 
-Scan RFID cards to trigger backend API and socket events.
+On card scan, the ESP32 posts the RFID UID to the backend, triggering real-time updates in the web dashboards.
 
-🔗 RFID Card Auto-Linking
-Passenger Workflow
+🔗 RFID Card Linking (Auto Mode)
+Passenger Workflow:
 
 Log in to Passenger Dashboard.
 
 Click “Link RFID Card Now”.
 
-Scan RFID card.
+Scan your card on ESP32 device.
 
-UID auto-links instantly to the logged-in account.
+UID connects automatically — no manual typing or database edits.
+
+💳 Razorpay Wallet Recharge
+Secure recharge using Razorpay Checkout.
+
+Works in test or live mode depending on your API keys.
+
+🧪 Manual Verification Checklist
+✅ Passenger and Conductor account creation.
+✅ RFID linking via physical scan.
+✅ Wallet recharge successful through Razorpay.
+✅ RFID card scan triggers automatic fare deduction.
+✅ Conductor dashboard updates instantly.
+✅ No data decryption or encoding errors.
