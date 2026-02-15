@@ -83,12 +83,12 @@ RAZORPAY_KEY_SECRET=your_razorpay_secret
 
 ESP32_DEVICE_KEY=BUSPASS_ESP32_KEY_2026
 ```
-🛠️ Installation & Setup
-1️⃣ Clone Repository
+### 🛠️ Installation & Setup
+## 1️⃣ Clone Repository
 bash
 git clone https://github.com/yourusername/smart-bus-pass.git
 cd smart-bus-pass
-2️⃣ Backend Setup
+## 2️⃣ Backend Setup
 bash
 cd backend
 npm install
@@ -96,7 +96,7 @@ npm start
 Backend runs at
 👉 http://localhost:5000
 
-3️⃣ Frontend Setup
+## 3️⃣ Frontend Setup
 bash
 cd frontend
 npm install
@@ -104,7 +104,7 @@ npm run dev
 Frontend runs at
 👉 http://localhost:5173
 
-📡 RFID + ESP32 Setup
+## #📡 RFID + ESP32 Setup
 Open your Arduino code for the ESP32.
 
 Update the backend API endpoint:
@@ -117,7 +117,7 @@ Flash the code using Arduino IDE.
 
 On card scan, the ESP32 posts the RFID UID to the backend, triggering real-time updates in the web dashboards.
 
-🔗 RFID Card Linking (Auto Mode)
+### 🔗 RFID Card Linking (Auto Mode)
 Passenger Workflow:
 
 Log in to Passenger Dashboard.
@@ -128,12 +128,12 @@ Scan your card on ESP32 device.
 
 UID connects automatically — no manual typing or database edits.
 
-💳 Razorpay Wallet Recharge
+### 💳 Razorpay Wallet Recharge
 Secure recharge using Razorpay Checkout.
 
 Works in test or live mode depending on your API keys.
 
-🧪 Manual Verification Checklist
+### 🧪 Manual Verification Checklist
 ✅ Passenger and Conductor account creation.
 ✅ RFID linking via physical scan.
 ✅ Wallet recharge successful through Razorpay.
