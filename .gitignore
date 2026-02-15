@@ -1,0 +1,11 @@
+# Ignore IDE settings
+.vscode/
+
+# Ignore Kiro internal specs
+.kiro/
+
+# Ignore debug docs (optional)
+DEBUG_GUIDE.md
+
+node_modules
+.env
