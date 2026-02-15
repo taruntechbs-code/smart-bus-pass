@@ -104,7 +104,7 @@ npm start
 
 Backend runs at:  
 ```bash
-**http://localhost:5000**
+http://localhost:5000
 ```
 ---
 
@@ -117,7 +117,7 @@ npm run dev
 
 Frontend runs at:  
 ```bash
-**http://localhost:5173**
+http://localhost:5173
 ```
 
 ## 📡 RFID + ESP32 Setup
