@@ -887,3 +887,556 @@ input:focus {
 .logout-btn:hover {
   background: rgba(255, 60, 60, 0.45);
 }
+
+/* ========== CONDUCTOR FARE COLLECTION UI ========== */
+
+/* Scan Area */
+.conductor-scan-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+/* Start Scanning Button */
+.scan-start-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 36px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.scan-start-btn:hover {
+  box-shadow: 0 0 45px rgba(16, 185, 129, 0.6);
+}
+
+/* Stop Scanning Button */
+.scan-stop-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 36px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+  transition: all 0.3s ease;
+}
+
+.scan-stop-btn:hover {
+  box-shadow: 0 0 45px rgba(239, 68, 68, 0.6);
+}
+
+/* Status Badge */
+.scan-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  gap: 8px;
+}
+
+.scan-status-badge.scanning {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: #93c5fd;
+}
+
+.scan-status-badge.idle {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.scan-status-badge.error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+/* Pulsing dot for scanning state */
+.scan-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3b82f6;
+  display: inline-block;
+  animation: scan-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes scan-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(1.4);
+  }
+}
+
+/* Passenger Card */
+.passenger-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
+}
+
+.passenger-card-icon {
+  margin-bottom: 14px;
+}
+
+.passenger-card-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 18px;
+}
+
+.passenger-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.passenger-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+.detail-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.detail-value {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.detail-value.rfid-ok {
+  color: #10b981;
+}
+
+.detail-value.balance {
+  color: #60a5fa;
+  font-size: 1.1rem;
+}
+
+/* ── FARE MODAL ── */
+.fare-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.fare-modal-box {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: 36px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(59, 130, 246, 0.15);
+  text-align: center;
+}
+
+.fare-modal-passenger {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.fare-modal-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.fare-modal-pname {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 2px;
+}
+
+.fare-modal-balance {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.fare-modal-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.fare-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 4px 16px;
+  margin-bottom: 16px;
+  transition: 0.3s;
+}
+
+.fare-input-wrapper:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.fare-rupee-symbol {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.fare-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  padding: 12px 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.fare-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Result message */
+.fare-result {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.fare-result.success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+.fare-result.error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+/* Modal action buttons */
+.fare-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.fare-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.fare-btn.deduct {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.fare-btn.deduct:hover:not(:disabled) {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+
+.fare-btn.deduct:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fare-btn.cancel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.fare-btn.cancel:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+}
+
+/* ── SCAN HISTORY ── */
+.scan-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scan-history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.95rem;
+}
+
+.scan-history-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  transition: all 0.25s ease;
+}
+
+.scan-history-item:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(59, 130, 246, 0.25);
+  transform: translateX(4px);
+}
+
+.shi-name {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.shi-fare {
+  font-weight: 700;
+  color: #f87171;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.shi-balance {
+  font-weight: 600;
+  color: #10b981;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.shi-time {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+/* Quick actions grid (passenger dashboard) */
+.quick-actions-grid {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.quick-btn {
+  padding: 14px 28px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.quick-btn.recharge {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.quick-btn.recharge:hover {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+
+.quick-btn.history {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.quick-btn.history:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* RFID status box */
+.rfid-status-box {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.rfid-linked {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.rfid-not-linked {
+  color: #f87171;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+
+.rfid-link-btn {
+  padding: 12px 28px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.rfid-link-btn:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+/* Recharge Modal */
+.recharge-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.recharge-modal-box {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: 36px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.recharge-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.recharge-input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 1.1rem;
+  outline: none;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.recharge-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.recharge-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.recharge-btn {
+  flex: 1;
+  padding: 13px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.recharge-btn.proceed {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+}
+
+.recharge-btn.cancel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.recharge-btn.cancel:hover {
+  background: rgba(255, 255, 255, 0.14);
+}

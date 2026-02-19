@@ -1,22 +1,20 @@
 const User = require("../models/User");
-const Wallet = require("../models/Wallet");
-const Transaction = require("../models/Transaction");
 const { hashData, encryptData } = require("../utils/encryption");
 
-const FARE = 10;
 
 exports.scanRFID = async (req, res) => {
     try {
-        const io = req.app.get("io"); // ✅ Declare io ONLY ONCE
-        const { uid } = req.body; // Input UID
+        const { uid } = req.body;
 
-        if (!uid) return res.send("INVALID_CARD");
+        if (!uid) {
+            return res.status(400).send("UID_MISSING");
+        }
 
-        // Lookup user by Hashed UID
-        // Using hashData from utils/encryption to ensure consistency with User model
+        // ✅ Hash UID for user lookup
         const hashedUid = hashData(uid);
 
-        // Emit Socket.IO Event for Auto-Linking (regardless of user existence)
+        // ✅ Emit rfid_scanned immediately — conductor dashboard + passenger linking both listen for this
+        const io = req.app.get("io");
         if (io) {
             io.emit("rfid_scanned", {
                 uid,
@@ -25,64 +23,25 @@ exports.scanRFID = async (req, res) => {
             });
         }
 
+        // ✅ Optional: check if a user is linked (no deduction — just informational)
         const user = await User.findOne({ rfid_uid_hash: hashedUid });
 
         if (!user) {
-            console.log(`❌ Card Scanned but User Not Found. UID: ${uid}`);
+            console.log(`❌ Card scanned but no user linked. UID: ${uid}`);
             return res.send("USER_NOT_FOUND");
         }
 
-        // Find Wallet
-        const wallet = await Wallet.findOne({ userId: user._id });
+        console.log(`✅ Card scanned for user: ${user.name}`);
 
-        if (!wallet) {
-            console.log(`❌ Wallet not found for User: ${user.name}`);
-            return res.send("ERROR");
-        }
-
-        if (wallet.balance < FARE) {
-            console.log(`⚠️ Low Balance for User: ${user.name}. Balance: ${wallet.balance}`);
-            return res.send("LOW_BALANCE");
-        }
-
-        // Deduct Fare and Save
-        wallet.balance -= FARE;
-        await wallet.save();
-
-        // Sync User model balance
-        user.wallet_balance = wallet.balance;
-        await user.save();
-
-        // Create Transaction
-        await Transaction.create({
-            userId: user._id,
-            type: "DEBIT",
-            amount: FARE,
-            description: "Bus Fare Deduction (RFID)"
-        });
-
-        console.log(`✅ Fare Deducted. User: ${user.name}, New Balance: ${wallet.balance}`);
-
-        // Emit Socket.IO Event
-        if (io) {
-            io.emit("rfidScan", {
-                name: user.name,
-                uid: uid,
-                fare: FARE,
-                balance: wallet.balance,
-                status: "SUCCESS",
-                timestamp: new Date()
-            });
-        }
-
-        // Return plain text for ESP32
-        res.send("SUCCESS");
+        // ✅ Fare deduction happens ONLY via POST /api/conductor/deduct-fare
+        return res.send("UID_RECEIVED");
 
     } catch (err) {
         console.error("RFID Scan Error:", err);
-        res.send("ERROR");
+        return res.status(500).send("SERVER_ERROR");
     }
 };
+
 
 exports.linkRFID = async (req, res) => {
     try {

@@ -75,6 +75,9 @@ export const conductorAPI = {
     getScans: () => api.get("/conductor/scans"),
     getStats: () => api.get("/conductor/stats"),
     scanPassenger: (rfid_uid, fare) => api.post("/conductor/scan", { rfid_uid, fare }),
+    getPassenger: (uid) => api.get(`/conductor/passenger/${uid}`),
+    deductFare: (uid, fare) => api.post("/conductor/deduct-fare", { uid, fare }),
+    scanControl: (action) => api.post("/conductor/scan-control", { action }),
 };
 
 
