@@ -17,7 +17,11 @@ const io = new Server(server, {
     cors: {
         origin: "*", // Allow all origins for development
         methods: ["GET", "POST"]
-    }
+    },
+    allowEIO3: true,          // Support ESP32 SocketIOclient (EIO3 + EIO4)
+    pingTimeout: 60000,       // 60s before considering client dead
+    pingInterval: 25000,      // Ping every 25s to keep connection alive
+    transports: ["websocket", "polling"],
 });
 
 // Export io to be used in routes
