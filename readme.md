@@ -85,6 +85,10 @@ RAZORPAY_KEY_ID=your_razorpay_test_key
 RAZORPAY_KEY_SECRET=your_razorpay_secret
 
 ESP32_DEVICE_KEY=BUSPASS_ESP32_KEY_2026
+<<<<<<< HEAD
+=======
+```
+>>>>>>> 420ad97f6f6e3d1cd15c0e99ed61741cd2f6cfeb
 
 ## 🛠️ Installation & Setup
 
@@ -94,8 +98,11 @@ git clone https://github.com/yourusername/smart-bus-pass.git
 cd smart-bus-pass
 ```
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> 420ad97f6f6e3d1cd15c0e99ed61741cd2f6cfeb
 ### 2️⃣ Backend Setup
 ```bash
 cd backend
@@ -104,8 +111,14 @@ npm start
 ```
 
 Backend runs at:  
+<<<<<<< HEAD
 **http://localhost:5000**
 
+=======
+```bash
+http://localhost:5000
+```
+>>>>>>> 420ad97f6f6e3d1cd15c0e99ed61741cd2f6cfeb
 ---
 
 ### 3️⃣ Frontend Setup
@@ -116,6 +129,7 @@ npm run dev
 ```
 
 Frontend runs at:  
+<<<<<<< HEAD
 **http://localhost:5173**
 
 ---
@@ -151,10 +165,51 @@ http://192.168.xx.xx:5000/api/rfid/scan
 
 ---
 
+=======
+```bash
+http://localhost:5173
+```
+
+## 📡 RFID + ESP32 Setup
+
+- Open your Arduino code for the ESP32  
+- Update the backend API endpoint:
+
+```text
+http://192.168.xx.xx:5000/api/rfid/scan
+```
+
+- Connect the MFRC522 RFID reader module to the ESP32  
+- Flash the code using Arduino IDE  
+- On card scan, the ESP32 posts the RFID UID to the backend, triggering real-time dashboard updates  
+
+---
+
+## 🔗 RFID Card Linking (Auto Mode)
+
+### Passenger Workflow
+1. Log in to Passenger Dashboard  
+2. Click **“Link RFID Card Now”**  
+3. Scan your RFID card on the ESP32 device  
+4. UID connects automatically — no manual typing or database edits  
+
+---
+
+## 💳 Razorpay Wallet Recharge
+- Secure wallet recharge using Razorpay Checkout  
+- Works in **test** or **live** mode based on API keys  
+
+---
+
+>>>>>>> 420ad97f6f6e3d1cd15c0e99ed61741cd2f6cfeb
 ## 🧪 Manual Verification Checklist
 - ✅ Passenger and Conductor account creation  
 - ✅ RFID linking via physical scan  
 - ✅ Wallet recharge through Razorpay  
 - ✅ RFID scan triggers automatic fare deduction  
 - ✅ Conductor dashboard updates instantly  
+<<<<<<< HEAD
 - ✅ No encryption, decryption, or encoding errors  
+=======
+- ✅ No encryption, decryption, or encoding errors  
+>>>>>>> 420ad97f6f6e3d1cd15c0e99ed61741cd2f6cfeb
