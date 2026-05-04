@@ -285,3 +285,1834 @@
   transform: scale(1.06);
   opacity: 0.92;
 }
+
+/* ===== Passenger Dashboard Premium Bus Glass Background ===== */
+.passenger-dashboard-page {
+  isolation: isolate;
+  background: #020817;
+  --cursor-x: 50vw;
+  --cursor-y: 50vh;
+  --mx: 50%;
+  --my: 50%;
+  --liquid-alpha: 0.35;
+}
+
+.passenger-dashboard-page::before,
+.passenger-dashboard-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.passenger-dashboard-page::before {
+  z-index: -2;
+  background-image: url("./assets/side-view-modern-bus-white-background_62972-46821-upscaled.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.34;
+  filter: blur(3px) saturate(0.96) contrast(1.08) brightness(0.82);
+  transform: scale(1.025);
+}
+
+.passenger-dashboard-page::after {
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(96, 165, 250, 0.24), transparent 30%),
+    radial-gradient(circle at 82% 15%, rgba(14, 165, 233, 0.18), transparent 32%),
+    radial-gradient(circle at 48% 92%, rgba(37, 99, 235, 0.16), transparent 36%),
+    linear-gradient(135deg, rgba(2, 6, 23, 0.78), rgba(10, 25, 58, 0.62) 44%, rgba(2, 6, 23, 0.82));
+}
+
+.passenger-dashboard-page .particles span {
+  background: rgba(147, 197, 253, 0.22);
+  box-shadow: 0 0 24px rgba(96, 165, 250, 0.28);
+}
+
+.passenger-dashboard-page .cursor-glow {
+  width: 190px;
+  height: 190px;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.22), rgba(147, 197, 253, 0.18) 22%, rgba(59, 130, 246, 0.12) 44%, transparent 70%);
+  filter: blur(22px);
+  opacity: 0.82;
+  mix-blend-mode: screen;
+  z-index: 998;
+}
+
+.passenger-dashboard-page .dashboard-container {
+  isolation: isolate;
+}
+
+.passenger-dashboard-page .dashboard-container::before,
+.passenger-dashboard-page .dashboard-container::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.passenger-dashboard-page .dashboard-container::before {
+  top: 70px;
+  left: 50%;
+  width: min(860px, 72vw);
+  height: 620px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(circle at 24% 18%, rgba(96, 165, 250, 0.34), transparent 32%),
+    radial-gradient(circle at 72% 22%, rgba(56, 189, 248, 0.22), transparent 34%),
+    radial-gradient(circle at 52% 76%, rgba(29, 78, 216, 0.22), transparent 42%);
+  filter: blur(54px);
+  opacity: 0.82;
+}
+
+.passenger-dashboard-page .dashboard-container::after {
+  left: var(--cursor-x);
+  top: var(--cursor-y);
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle, rgba(191, 219, 254, 0.2), rgba(96, 165, 250, 0.13) 26%, rgba(37, 99, 235, 0.07) 48%, transparent 68%);
+  filter: blur(30px);
+  opacity: 0.92;
+  transition: opacity 180ms ease;
+}
+
+.passenger-dashboard-page .navbar,
+.passenger-dashboard-page .dashboard-section,
+.passenger-dashboard-page .stat-card,
+.passenger-dashboard-page .trip-item,
+.passenger-dashboard-page .rfid-status-box,
+.passenger-dashboard-page .quick-btn.history,
+.passenger-dashboard-page .recharge-modal-box {
+  border: 1px solid rgba(191, 219, 254, 0.26);
+  backdrop-filter: blur(34px) saturate(1.65);
+  -webkit-backdrop-filter: blur(34px) saturate(1.65);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.34),
+    0 0 54px rgba(59, 130, 246, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(147, 197, 253, 0.12),
+    inset 0 0 28px rgba(147, 197, 253, 0.055);
+}
+
+.passenger-dashboard-page .navbar,
+.passenger-dashboard-page .dashboard-section,
+.passenger-dashboard-page .recharge-modal-box {
+  background:
+    linear-gradient(145deg, rgba(219, 234, 254, 0.2), rgba(30, 64, 175, 0.12) 38%, rgba(15, 23, 42, 0.32) 72%),
+    rgba(10, 25, 58, 0.36);
+}
+
+.passenger-dashboard-page .navbar {
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(219, 234, 254, 0.22), rgba(37, 99, 235, 0.14) 50%, rgba(15, 23, 42, 0.34)),
+    rgba(8, 20, 48, 0.5);
+  box-shadow:
+    0 24px 72px rgba(0, 0, 0, 0.36),
+    0 0 46px rgba(59, 130, 246, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(147, 197, 253, 0.12);
+  overflow: hidden;
+}
+
+.passenger-dashboard-page .quick-btn,
+.passenger-dashboard-page .rfid-link-btn,
+.passenger-dashboard-page .recharge-btn,
+.passenger-dashboard-page .trip-item,
+.passenger-dashboard-page .rfid-status-box {
+  position: relative;
+  overflow: hidden;
+}
+
+.passenger-dashboard-page .recharge-modal-box {
+  position: relative;
+  overflow: hidden;
+}
+
+.passenger-dashboard-page .dashboard-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.passenger-dashboard-page .dashboard-section::before,
+.passenger-dashboard-page .stat-card::before,
+.passenger-dashboard-page .navbar::before,
+.passenger-dashboard-page .trip-item::before,
+.passenger-dashboard-page .rfid-status-box::before,
+.passenger-dashboard-page .quick-btn::before,
+.passenger-dashboard-page .rfid-link-btn::before,
+.passenger-dashboard-page .recharge-btn::before,
+.passenger-dashboard-page .recharge-modal-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 170px at var(--mx) var(--my), rgba(255, 255, 255, 0.12), rgba(147, 197, 253, 0.2) 24%, rgba(37, 99, 235, 0.12) 42%, transparent 66%),
+    radial-gradient(ellipse at 18% 0%, rgba(255, 255, 255, 0.34), transparent 30%),
+    linear-gradient(118deg, rgba(255, 255, 255, 0.24), transparent 32%),
+    radial-gradient(circle at 88% 100%, rgba(96, 165, 250, 0.18), transparent 42%);
+  opacity: var(--liquid-alpha);
+}
+
+.passenger-dashboard-page .dashboard-section::after,
+.passenger-dashboard-page .stat-card::after,
+.passenger-dashboard-page .navbar::after,
+.passenger-dashboard-page .trip-item::after,
+.passenger-dashboard-page .rfid-status-box::after,
+.passenger-dashboard-page .quick-btn::after,
+.passenger-dashboard-page .rfid-link-btn::after,
+.passenger-dashboard-page .recharge-btn::after,
+.passenger-dashboard-page .recharge-modal-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 110px at var(--mx) var(--my), rgba(255, 255, 255, 0.28), rgba(147, 197, 253, 0.16) 28%, transparent 62%),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.68), rgba(147, 197, 253, 0.46), transparent) 18px 1px / calc(100% - 36px) 2px no-repeat;
+  opacity: var(--liquid-alpha);
+  mix-blend-mode: screen;
+}
+
+.passenger-dashboard-page .section-content,
+.passenger-dashboard-page .section-header,
+.passenger-dashboard-page .stat-content,
+.passenger-dashboard-page .stat-icon,
+.passenger-dashboard-page .nav-left,
+.passenger-dashboard-page .nav-right,
+.passenger-dashboard-page .recharge-modal-box > *,
+.passenger-dashboard-page .trip-item > *,
+.passenger-dashboard-page .rfid-status-box > *,
+.passenger-dashboard-page .quick-btn,
+.passenger-dashboard-page .rfid-link-btn,
+.passenger-dashboard-page .recharge-btn {
+  position: relative;
+  z-index: 1;
+}
+
+.passenger-dashboard-page .stat-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.24), transparent 34%),
+    linear-gradient(145deg, rgba(147, 197, 253, 0.2), rgba(37, 99, 235, 0.12) 46%, rgba(15, 23, 42, 0.34)),
+    rgba(12, 30, 68, 0.36) !important;
+  box-shadow:
+    0 26px 64px rgba(0, 0, 0, 0.28),
+    0 0 34px rgba(59, 130, 246, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(147, 197, 253, 0.1);
+}
+
+.passenger-dashboard-page .trip-item,
+.passenger-dashboard-page .rfid-status-box,
+.passenger-dashboard-page .quick-btn.history {
+  background:
+    linear-gradient(145deg, rgba(219, 234, 254, 0.16), rgba(59, 130, 246, 0.08)),
+    rgba(12, 30, 68, 0.32);
+}
+
+.passenger-dashboard-page .trip-item:hover {
+  background:
+    linear-gradient(145deg, rgba(219, 234, 254, 0.22), rgba(59, 130, 246, 0.12)),
+    rgba(12, 30, 68, 0.42);
+  border-color: rgba(191, 219, 254, 0.34);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.24),
+    0 0 30px rgba(96, 165, 250, 0.14);
+}
+
+.passenger-dashboard-page .quick-btn.recharge,
+.passenger-dashboard-page .rfid-link-btn,
+.passenger-dashboard-page .recharge-btn.proceed {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background:
+    radial-gradient(circle at 24% 0%, rgba(255, 255, 255, 0.42), transparent 35%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(147, 197, 253, 0.08)),
+    linear-gradient(135deg, rgba(96, 165, 250, 0.96), rgba(37, 99, 235, 0.9));
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.24),
+    0 0 34px rgba(96, 165, 250, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(30, 64, 175, 0.28);
+}
+
+.passenger-dashboard-page .quick-btn.history,
+.passenger-dashboard-page .recharge-btn.cancel {
+  color: rgba(255, 255, 255, 0.86);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.passenger-dashboard-page .quick-btn:hover,
+.passenger-dashboard-page .rfid-link-btn:hover,
+.passenger-dashboard-page .recharge-btn:hover {
+  transform: translateY(-2px) scale(1.025);
+  opacity: 1;
+  filter: brightness(1.06);
+}
+
+.passenger-dashboard-page .recharge-modal-overlay {
+  background: rgba(3, 5, 10, 0.74);
+  backdrop-filter: blur(16px) saturate(1.05);
+  -webkit-backdrop-filter: blur(16px) saturate(1.05);
+}
+
+/* ===== Futuristic AI Premium Refinements ===== */
+.passenger-dashboard-page {
+  background:
+    radial-gradient(circle at 50% -10%, rgba(59, 130, 246, 0.18), transparent 38%),
+    linear-gradient(180deg, #020817 0%, #030712 48%, #020617 100%);
+}
+
+.passenger-dashboard-page::before {
+  opacity: 0.46;
+  filter: blur(1.6px) saturate(0.98) contrast(1.12) brightness(0.9);
+}
+
+.passenger-dashboard-page::after {
+  background:
+    radial-gradient(circle at 20% 8%, rgba(96, 165, 250, 0.12), transparent 31%),
+    radial-gradient(circle at 82% 14%, rgba(34, 211, 238, 0.075), transparent 30%),
+    radial-gradient(circle at 50% 92%, rgba(124, 58, 237, 0.055), transparent 36%),
+    linear-gradient(135deg, rgba(2, 6, 23, 0.66), rgba(5, 18, 42, 0.46) 44%, rgba(2, 6, 23, 0.72));
+}
+
+.passenger-dashboard-page .particles span {
+  width: 92px;
+  height: 92px;
+  opacity: 0.34;
+  filter: blur(26px);
+  animation: ai-orb-drift 18s infinite ease-in-out alternate;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.42), transparent 68%);
+}
+
+.passenger-dashboard-page .particles span:nth-child(2) {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.34), transparent 68%);
+  animation-duration: 22s;
+}
+
+.passenger-dashboard-page .particles span:nth-child(3) {
+  width: 104px;
+  height: 104px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.32), transparent 68%);
+  animation-duration: 24s;
+}
+
+.passenger-dashboard-page .particles span:nth-child(4) {
+  width: 72px;
+  height: 72px;
+  background: radial-gradient(circle, rgba(191, 219, 254, 0.28), transparent 68%);
+  animation-duration: 19s;
+}
+
+.passenger-dashboard-page .particles span:nth-child(odd) {
+  width: 82px;
+  height: 82px;
+  opacity: 0.3;
+}
+
+@keyframes ai-orb-drift {
+  0% {
+    transform: translate3d(-20px, 90vh, 0) scale(0.84);
+  }
+
+  100% {
+    transform: translate3d(90px, -20vh, 0) scale(1.14);
+  }
+}
+
+.passenger-dashboard-page .navbar,
+.passenger-dashboard-page .dashboard-section,
+.passenger-dashboard-page .stat-card,
+.passenger-dashboard-page .trip-item,
+.passenger-dashboard-page .rfid-status-box,
+.passenger-dashboard-page .quick-btn,
+.passenger-dashboard-page .rfid-link-btn,
+.passenger-dashboard-page .recharge-modal-box {
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background 260ms ease,
+    filter 260ms ease;
+}
+
+.passenger-dashboard-page .navbar,
+.passenger-dashboard-page .dashboard-section,
+.passenger-dashboard-page .recharge-modal-box {
+  background:
+    linear-gradient(140deg, rgba(226, 232, 240, 0.18), rgba(59, 130, 246, 0.095) 38%, rgba(2, 6, 23, 0.42) 72%),
+    rgba(6, 18, 42, 0.38);
+  border-color: rgba(191, 219, 254, 0.22);
+  box-shadow:
+    0 34px 100px rgba(0, 0, 0, 0.34),
+    0 0 64px rgba(59, 130, 246, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(147, 197, 253, 0.12),
+    inset 0 0 38px rgba(147, 197, 253, 0.045);
+}
+
+.passenger-dashboard-page .navbar:hover,
+.passenger-dashboard-page .dashboard-section:hover,
+.passenger-dashboard-page .stat-card:hover,
+.passenger-dashboard-page .trip-item:hover,
+.passenger-dashboard-page .rfid-status-box:hover {
+  border-color: rgba(191, 219, 254, 0.38);
+  box-shadow:
+    0 38px 110px rgba(0, 0, 0, 0.36),
+    0 0 72px rgba(59, 130, 246, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -1px 0 rgba(147, 197, 253, 0.16),
+    inset 0 0 48px rgba(147, 197, 253, 0.065);
+}
+
+.passenger-dashboard-page .stat-card:hover,
+.passenger-dashboard-page .trip-item:hover,
+.passenger-dashboard-page .rfid-status-box:hover {
+  transform: translateY(-4px);
+}
+
+.passenger-dashboard-page .dashboard-title {
+  letter-spacing: -0.045em;
+  text-shadow:
+    0 0 28px rgba(96, 165, 250, 0.3),
+    0 10px 30px rgba(0, 0, 0, 0.32);
+  background: linear-gradient(135deg, #eff6ff 6%, #93c5fd 42%, #60a5fa 68%, #c4b5fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.passenger-dashboard-page .dashboard-subtitle,
+.passenger-dashboard-page .section-description,
+.passenger-dashboard-page .stat-subtitle {
+  color: rgba(226, 232, 240, 0.72);
+}
+
+.passenger-dashboard-page .section-title {
+  letter-spacing: -0.025em;
+  text-shadow: 0 0 24px rgba(147, 197, 253, 0.18);
+}
+
+.passenger-dashboard-page .section-title::after {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 2px;
+  margin: 9px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.9), rgba(34, 211, 238, 0.62), transparent);
+  box-shadow: 0 0 18px rgba(96, 165, 250, 0.45);
+}
+
+.passenger-dashboard-page .stat-title {
+  color: rgba(219, 234, 254, 0.74);
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+}
+
+.passenger-dashboard-page .stat-value {
+  letter-spacing: -0.045em;
+  text-shadow: 0 0 22px rgba(147, 197, 253, 0.24);
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child {
+  border-color: rgba(96, 165, 250, 0.42);
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(219, 234, 254, 0.18), transparent 34%),
+    conic-gradient(from 180deg at 50% 50%, rgba(96, 165, 250, 0.2), rgba(34, 211, 238, 0.14), rgba(59, 130, 246, 0.22), rgba(96, 165, 250, 0.2)),
+    rgba(12, 30, 68, 0.38) !important;
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child .stat-icon {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.13);
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child .stat-icon::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: inherit;
+  background: conic-gradient(from 0deg, rgba(96, 165, 250, 0.16), rgba(34, 211, 238, 0.9), rgba(96, 165, 250, 0.16));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  animation: balance-ring-spin 5.6s linear infinite;
+}
+
+@keyframes balance-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.passenger-dashboard-page .rfid-status-box {
+  border-color: rgba(96, 165, 250, 0.38);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.24), transparent 42%),
+    linear-gradient(145deg, rgba(219, 234, 254, 0.16), rgba(59, 130, 246, 0.08)),
+    rgba(12, 30, 68, 0.34);
+}
+
+.passenger-dashboard-page .rfid-not-linked,
+.passenger-dashboard-page .rfid-linked {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.passenger-dashboard-page .rfid-not-linked::before,
+.passenger-dashboard-page .rfid-linked::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 0 currentColor;
+  animation: rfid-status-pulse 1.7s infinite ease-out;
+}
+
+@keyframes rfid-status-pulse {
+  0% {
+    box-shadow: 0 0 0 0 currentColor;
+    opacity: 1;
+  }
+
+  100% {
+    box-shadow: 0 0 0 12px transparent;
+    opacity: 0.72;
+  }
+}
+
+.passenger-dashboard-page .quick-btn.recharge,
+.passenger-dashboard-page .rfid-link-btn {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.38), transparent 30%),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.96), rgba(37, 99, 235, 0.92), rgba(34, 211, 238, 0.86));
+  background-size: 100% 100%, 220% 100%;
+  animation: ai-border-flow 4.8s infinite linear;
+}
+
+.passenger-dashboard-page .quick-btn:hover,
+.passenger-dashboard-page .rfid-link-btn:hover,
+.passenger-dashboard-page .recharge-btn:hover {
+  transform: translateY(-3px) scale(1.035);
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.28),
+    0 0 44px rgba(96, 165, 250, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.48);
+}
+
+@keyframes ai-border-flow {
+  0% {
+    background-position: 0 0, 0% 50%;
+  }
+
+  100% {
+    background-position: 0 0, 220% 50%;
+  }
+}
+
+.passenger-dashboard-page .recent-trips {
+  position: relative;
+}
+
+.passenger-dashboard-page .recent-trips::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 12px;
+  width: 1px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(96, 165, 250, 0.62), rgba(34, 211, 238, 0.4), transparent);
+  box-shadow: 0 0 18px rgba(96, 165, 250, 0.28);
+}
+
+.passenger-dashboard-page .trip-item {
+  padding-left: 34px;
+}
+
+.passenger-dashboard-page .trip-item p:first-child {
+  position: relative;
+}
+
+.passenger-dashboard-page .trip-item p:first-child::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: #60a5fa;
+  box-shadow:
+    0 0 0 4px rgba(96, 165, 250, 0.16),
+    0 0 18px rgba(96, 165, 250, 0.72);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .passenger-dashboard-page .particles span,
+  .passenger-dashboard-page .stats-grid .stat-card:first-child .stat-icon::before,
+  .passenger-dashboard-page .rfid-not-linked::before,
+  .passenger-dashboard-page .rfid-linked::before,
+  .passenger-dashboard-page .quick-btn.recharge,
+  .passenger-dashboard-page .rfid-link-btn {
+    animation: none;
+  }
+}
+
+/* ===== Final Investor-Ready Premium Polish ===== */
+.passenger-dashboard-page .dashboard-section:first-child {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(219, 234, 254, 0.22), transparent 32%),
+    radial-gradient(ellipse at 50% 0%, rgba(96, 165, 250, 0.3), transparent 48%),
+    linear-gradient(145deg, rgba(226, 232, 240, 0.2), rgba(59, 130, 246, 0.13) 40%, rgba(2, 6, 23, 0.38) 78%),
+    rgba(6, 18, 42, 0.44);
+  box-shadow:
+    0 38px 115px rgba(0, 0, 0, 0.38),
+    0 0 86px rgba(96, 165, 250, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(147, 197, 253, 0.18),
+    inset 0 0 58px rgba(147, 197, 253, 0.08);
+}
+
+.passenger-dashboard-page .dashboard-section:first-child::before {
+  background:
+    linear-gradient(105deg, transparent 4%, rgba(255, 255, 255, 0.36) 14%, transparent 28%),
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.28), transparent 42%),
+    radial-gradient(circle at var(--mx) var(--my), rgba(147, 197, 253, 0.22), transparent 34%);
+  opacity: 0.82;
+}
+
+.passenger-dashboard-page .dashboard-title {
+  font-size: clamp(2.55rem, 4.2vw, 3.45rem);
+  line-height: 0.98;
+  margin-bottom: 14px;
+  filter: drop-shadow(0 0 22px rgba(96, 165, 250, 0.28));
+}
+
+.passenger-dashboard-page .dashboard-subtitle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 15px;
+  border-radius: 999px;
+  background: rgba(219, 234, 254, 0.08);
+  border: 1px solid rgba(191, 219, 254, 0.16);
+  color: rgba(239, 246, 255, 0.82);
+  letter-spacing: 0.012em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 24px rgba(96, 165, 250, 0.08);
+}
+
+.passenger-dashboard-page .dashboard-section,
+.passenger-dashboard-page .stat-card,
+.passenger-dashboard-page .rfid-status-box,
+.passenger-dashboard-page .trip-item,
+.passenger-dashboard-page .navbar {
+  backdrop-filter: blur(40px) saturate(1.75) contrast(1.03);
+  -webkit-backdrop-filter: blur(40px) saturate(1.75) contrast(1.03);
+}
+
+.passenger-dashboard-page .dashboard-section::after,
+.passenger-dashboard-page .stat-card::after,
+.passenger-dashboard-page .navbar::after,
+.passenger-dashboard-page .rfid-status-box::after {
+  background:
+    radial-gradient(circle 116px at var(--mx) var(--my), rgba(255, 255, 255, 0.34), rgba(147, 197, 253, 0.18) 30%, transparent 64%),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), rgba(147, 197, 253, 0.5), transparent) 16px 1px / calc(100% - 32px) 2px no-repeat,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 28%);
+}
+
+.passenger-dashboard-page .section-title {
+  font-size: 1.58rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.passenger-dashboard-page .section-title::after {
+  width: 68px;
+  margin-top: 11px;
+  opacity: 0.92;
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child {
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.3),
+    0 0 60px rgba(96, 165, 250, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(147, 197, 253, 0.14);
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child .stat-value {
+  font-size: 2.45rem;
+  color: #f8fbff;
+  text-shadow:
+    0 0 18px rgba(147, 197, 253, 0.34),
+    0 0 46px rgba(59, 130, 246, 0.2);
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child .stat-title::after {
+  content: "LIVE KPI";
+  display: inline-flex;
+  margin-left: 8px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: #bfdbfe;
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(147, 197, 253, 0.2);
+}
+
+.passenger-dashboard-page .quick-btn.recharge {
+  border-color: rgba(219, 234, 254, 0.36);
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.48), transparent 30%),
+    linear-gradient(115deg, rgba(147, 197, 253, 1), rgba(59, 130, 246, 0.98) 42%, rgba(34, 211, 238, 0.92) 76%, rgba(96, 165, 250, 1));
+  box-shadow:
+    0 24px 58px rgba(0, 0, 0, 0.32),
+    0 0 54px rgba(96, 165, 250, 0.42),
+    0 0 18px rgba(34, 211, 238, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 -1px 0 rgba(30, 64, 175, 0.34);
+}
+
+.passenger-dashboard-page .quick-btn.recharge::after {
+  opacity: 0.9;
+}
+
+.passenger-dashboard-page .quick-btn.recharge:hover {
+  transform: translateY(-4px) scale(1.045);
+  box-shadow:
+    0 30px 76px rgba(0, 0, 0, 0.36),
+    0 0 74px rgba(96, 165, 250, 0.52),
+    0 0 30px rgba(34, 211, 238, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.68);
+}
+
+.passenger-dashboard-page .dashboard-section:has(.rfid-status-box) {
+  border-color: rgba(96, 165, 250, 0.42);
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(219, 234, 254, 0.18), transparent 32%),
+    radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.28), transparent 48%),
+    linear-gradient(145deg, rgba(226, 232, 240, 0.17), rgba(37, 99, 235, 0.13) 40%, rgba(2, 6, 23, 0.38) 78%),
+    rgba(6, 18, 42, 0.42);
+}
+
+.passenger-dashboard-page .dashboard-section:has(.rfid-status-box) .section-title::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #60a5fa;
+  box-shadow:
+    0 0 0 6px rgba(96, 165, 250, 0.12),
+    0 0 28px rgba(96, 165, 250, 0.82);
+  animation: rfid-radar-core 1.7s infinite ease-out;
+}
+
+.passenger-dashboard-page .rfid-status-box::before {
+  background:
+    repeating-radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.12) 0 1px, transparent 2px 22px),
+    radial-gradient(circle at var(--mx) var(--my), rgba(219, 234, 254, 0.24), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.18), transparent 42%);
+  opacity: 0.52;
+}
+
+.passenger-dashboard-page .rfid-status-box::after {
+  background:
+    conic-gradient(from 0deg at 50% 50%, transparent, rgba(96, 165, 250, 0.16), transparent 34%),
+    radial-gradient(circle 110px at var(--mx) var(--my), rgba(255, 255, 255, 0.28), rgba(147, 197, 253, 0.16) 28%, transparent 62%);
+  animation: rfid-sweep 5.2s linear infinite;
+}
+
+.passenger-dashboard-page .rfid-link-btn {
+  border-color: rgba(219, 234, 254, 0.32);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.28),
+    0 0 48px rgba(96, 165, 250, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.48);
+}
+
+@keyframes rfid-radar-core {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(96, 165, 250, 0.32),
+      0 0 28px rgba(96, 165, 250, 0.82);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 14px rgba(96, 165, 250, 0),
+      0 0 34px rgba(96, 165, 250, 0.9);
+  }
+}
+
+@keyframes rfid-sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.passenger-dashboard-page .trip-item {
+  border-color: rgba(191, 219, 254, 0.24);
+}
+
+.passenger-dashboard-page .trip-item p:first-child {
+  font-weight: 700;
+  color: rgba(248, 250, 252, 0.94);
+}
+
+.passenger-dashboard-page .trip-item p:last-child {
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #eff6ff;
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(147, 197, 253, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.passenger-dashboard-page .navbar a,
+.passenger-dashboard-page .nav-right a,
+.passenger-dashboard-page .logout-btn {
+  transition:
+    transform 220ms ease,
+    color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.passenger-dashboard-page .navbar a:hover,
+.passenger-dashboard-page .nav-right a:hover {
+  transform: translateY(-1px);
+  color: #f8fbff;
+  text-shadow: 0 0 18px rgba(147, 197, 253, 0.38);
+}
+
+.passenger-dashboard-page .logout-btn:hover {
+  transform: translateY(-1px) scale(1.035);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .passenger-dashboard-page .dashboard-section:has(.rfid-status-box) .section-title::before,
+  .passenger-dashboard-page .rfid-status-box::after {
+    animation: none;
+  }
+}
+
+/* ===== Restrained Passenger Dashboard Refinement ===== */
+.passenger-dashboard-page {
+  background:
+    radial-gradient(circle at 50% -8%, rgba(37, 99, 235, 0.09), transparent 34%),
+    linear-gradient(180deg, #020713 0%, #030712 52%, #020617 100%);
+  --liquid-alpha: 0.16;
+}
+
+.passenger-dashboard-page::before {
+  opacity: 0.34;
+  filter: blur(2.2px) saturate(0.88) contrast(1.02) brightness(0.72);
+  transform: scale(1.018);
+}
+
+.passenger-dashboard-page::after {
+  background:
+    radial-gradient(circle at 18% 8%, rgba(96, 165, 250, 0.055), transparent 32%),
+    radial-gradient(circle at 82% 12%, rgba(34, 211, 238, 0.035), transparent 30%),
+    linear-gradient(135deg, rgba(2, 6, 23, 0.78), rgba(5, 15, 34, 0.62) 44%, rgba(2, 6, 23, 0.84));
+}
+
+.passenger-dashboard-page .particles span {
+  width: 44px;
+  height: 44px;
+  opacity: 0.12;
+  filter: blur(22px);
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.26), transparent 70%);
+  box-shadow: none;
+}
+
+.passenger-dashboard-page .particles span:nth-child(2),
+.passenger-dashboard-page .particles span:nth-child(3),
+.passenger-dashboard-page .particles span:nth-child(4),
+.passenger-dashboard-page .particles span:nth-child(odd) {
+  width: 48px;
+  height: 48px;
+  opacity: 0.1;
+  background: radial-gradient(circle, rgba(125, 211, 252, 0.2), transparent 70%);
+}
+
+.passenger-dashboard-page .cursor-glow {
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(219, 234, 254, 0.1), rgba(96, 165, 250, 0.06) 32%, transparent 70%);
+  filter: blur(28px);
+  opacity: 0.42;
+}
+
+.passenger-dashboard-page .dashboard-container {
+  padding-block: 28px 34px;
+}
+
+.passenger-dashboard-page .dashboard-container::before {
+  width: min(760px, 66vw);
+  height: 520px;
+  background:
+    radial-gradient(circle at 28% 20%, rgba(96, 165, 250, 0.11), transparent 34%),
+    radial-gradient(circle at 70% 24%, rgba(56, 189, 248, 0.07), transparent 36%);
+  filter: blur(66px);
+  opacity: 0.46;
+}
+
+.passenger-dashboard-page .dashboard-container::after {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(191, 219, 254, 0.08), rgba(96, 165, 250, 0.04) 32%, transparent 70%);
+  filter: blur(42px);
+  opacity: 0.42;
+}
+
+.passenger-dashboard-page .dashboard-section {
+  margin-bottom: 38px;
+  padding: 26px;
+}
+
+.passenger-dashboard-page .navbar,
+.passenger-dashboard-page .dashboard-section,
+.passenger-dashboard-page .stat-card,
+.passenger-dashboard-page .trip-item,
+.passenger-dashboard-page .rfid-status-box,
+.passenger-dashboard-page .quick-btn.history,
+.passenger-dashboard-page .recharge-modal-box {
+  border: 1px solid rgba(226, 232, 240, 0.12);
+  backdrop-filter: blur(26px) saturate(1.22);
+  -webkit-backdrop-filter: blur(26px) saturate(1.22);
+  box-shadow:
+    0 22px 58px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+.passenger-dashboard-page .navbar,
+.passenger-dashboard-page .dashboard-section,
+.passenger-dashboard-page .recharge-modal-box {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.105), rgba(59, 130, 246, 0.045) 42%, rgba(2, 6, 23, 0.32) 78%),
+    rgba(8, 18, 38, 0.42);
+}
+
+.passenger-dashboard-page .navbar {
+  border-radius: 22px;
+  box-shadow:
+    0 18px 54px rgba(0, 0, 0, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.passenger-dashboard-page .navbar:hover,
+.passenger-dashboard-page .dashboard-section:hover,
+.passenger-dashboard-page .stat-card:hover,
+.passenger-dashboard-page .trip-item:hover,
+.passenger-dashboard-page .rfid-status-box:hover {
+  border-color: rgba(226, 232, 240, 0.18);
+  box-shadow:
+    0 24px 66px rgba(0, 0, 0, 0.27),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.passenger-dashboard-page .dashboard-section::before,
+.passenger-dashboard-page .stat-card::before,
+.passenger-dashboard-page .navbar::before,
+.passenger-dashboard-page .trip-item::before,
+.passenger-dashboard-page .rfid-status-box::before,
+.passenger-dashboard-page .quick-btn::before,
+.passenger-dashboard-page .rfid-link-btn::before,
+.passenger-dashboard-page .recharge-btn::before,
+.passenger-dashboard-page .recharge-modal-box::before {
+  background:
+    radial-gradient(circle 145px at var(--mx) var(--my), rgba(255, 255, 255, 0.055), rgba(147, 197, 253, 0.06) 28%, transparent 64%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 32%);
+  opacity: calc(var(--liquid-alpha) * 0.7);
+}
+
+.passenger-dashboard-page .dashboard-section::after,
+.passenger-dashboard-page .stat-card::after,
+.passenger-dashboard-page .navbar::after,
+.passenger-dashboard-page .trip-item::after,
+.passenger-dashboard-page .rfid-status-box::after,
+.passenger-dashboard-page .quick-btn::after,
+.passenger-dashboard-page .rfid-link-btn::after,
+.passenger-dashboard-page .recharge-btn::after,
+.passenger-dashboard-page .recharge-modal-box::after {
+  background:
+    radial-gradient(circle 92px at var(--mx) var(--my), rgba(255, 255, 255, 0.09), rgba(147, 197, 253, 0.04) 32%, transparent 66%);
+  opacity: calc(var(--liquid-alpha) * 0.58);
+  mix-blend-mode: normal;
+}
+
+.passenger-dashboard-page .dashboard-section:first-child {
+  padding-block: 34px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(96, 165, 250, 0.105), transparent 50%),
+    linear-gradient(145deg, rgba(248, 250, 252, 0.12), rgba(59, 130, 246, 0.055) 42%, rgba(2, 6, 23, 0.34) 80%),
+    rgba(7, 18, 38, 0.46);
+  box-shadow:
+    0 26px 72px rgba(0, 0, 0, 0.27),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.passenger-dashboard-page .dashboard-section:first-child::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 34%),
+    radial-gradient(circle at var(--mx) var(--my), rgba(147, 197, 253, 0.07), transparent 36%);
+  opacity: 0.36;
+}
+
+.passenger-dashboard-page .dashboard-title {
+  font-size: clamp(2.35rem, 3.8vw, 3.15rem);
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  text-shadow: 0 12px 32px rgba(0, 0, 0, 0.34);
+  filter: none;
+  background: linear-gradient(135deg, #f8fbff 8%, #bfdbfe 48%, #93c5fd 78%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.passenger-dashboard-page .dashboard-subtitle {
+  padding: 6px 14px;
+  background: rgba(248, 250, 252, 0.045);
+  border: 1px solid rgba(226, 232, 240, 0.095);
+  color: rgba(226, 232, 240, 0.74);
+  box-shadow: none;
+}
+
+.passenger-dashboard-page .section-title {
+  font-size: 1.46rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-shadow: none;
+}
+
+.passenger-dashboard-page .section-title::after {
+  width: 42px;
+  height: 1px;
+  margin-top: 9px;
+  opacity: 0.56;
+  background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.7), transparent);
+  box-shadow: none;
+}
+
+.passenger-dashboard-page .stat-card {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.09), rgba(59, 130, 246, 0.04) 46%, rgba(2, 6, 23, 0.28)),
+    rgba(9, 22, 46, 0.42) !important;
+  box-shadow:
+    0 20px 46px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.passenger-dashboard-page .stat-card:hover,
+.passenger-dashboard-page .trip-item:hover,
+.passenger-dashboard-page .rfid-status-box:hover {
+  transform: translateY(-2px);
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child {
+  border-color: rgba(147, 197, 253, 0.18);
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.1), rgba(59, 130, 246, 0.05) 46%, rgba(2, 6, 23, 0.3)),
+    rgba(9, 22, 46, 0.44) !important;
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.23),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child .stat-icon::before {
+  opacity: 0.32;
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child .stat-value,
+.passenger-dashboard-page .stat-value {
+  text-shadow: none;
+}
+
+.passenger-dashboard-page .stats-grid .stat-card:first-child .stat-title::after {
+  background: rgba(147, 197, 253, 0.07);
+  border-color: rgba(147, 197, 253, 0.13);
+  color: rgba(219, 234, 254, 0.68);
+}
+
+.passenger-dashboard-page .quick-actions-grid {
+  gap: 16px;
+}
+
+.passenger-dashboard-page .quick-btn.recharge,
+.passenger-dashboard-page .rfid-link-btn,
+.passenger-dashboard-page .recharge-btn.proceed {
+  border: 1px solid rgba(226, 232, 240, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 46%),
+    linear-gradient(135deg, #5b8def, #2563eb 58%, #1d4ed8);
+  background-size: 100% 100%;
+  animation: none;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.24),
+    0 10px 28px rgba(37, 99, 235, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+.passenger-dashboard-page .quick-btn.recharge::after {
+  opacity: 0.18;
+}
+
+.passenger-dashboard-page .quick-btn.history,
+.passenger-dashboard-page .recharge-btn.cancel {
+  background: rgba(248, 250, 252, 0.055);
+  border-color: rgba(226, 232, 240, 0.11);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.passenger-dashboard-page .quick-btn:hover,
+.passenger-dashboard-page .rfid-link-btn:hover,
+.passenger-dashboard-page .recharge-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.25),
+    0 12px 30px rgba(37, 99, 235, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.passenger-dashboard-page .dashboard-section:has(.rfid-status-box) {
+  border-color: rgba(147, 197, 253, 0.15);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.085), transparent 50%),
+    linear-gradient(145deg, rgba(248, 250, 252, 0.1), rgba(37, 99, 235, 0.045) 42%, rgba(2, 6, 23, 0.32) 80%),
+    rgba(7, 18, 38, 0.44);
+}
+
+.passenger-dashboard-page .dashboard-section:has(.rfid-status-box) .section-title::before {
+  width: 9px;
+  height: 9px;
+  margin-right: 9px;
+  background: #93c5fd;
+  box-shadow: 0 0 0 5px rgba(147, 197, 253, 0.08);
+  animation: rfid-radar-core-soft 2.4s infinite ease-out;
+}
+
+.passenger-dashboard-page .rfid-status-box {
+  padding: 24px 20px;
+  border-color: rgba(147, 197, 253, 0.14);
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.075), rgba(59, 130, 246, 0.035)),
+    rgba(8, 21, 45, 0.38);
+}
+
+.passenger-dashboard-page .rfid-status-box::before {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(219, 234, 254, 0.075), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.065), transparent 34%);
+  opacity: 0.34;
+}
+
+.passenger-dashboard-page .rfid-status-box::after {
+  animation: none;
+  background: radial-gradient(circle 120px at 50% 10%, rgba(96, 165, 250, 0.065), transparent 62%);
+  opacity: 0.42;
+}
+
+.passenger-dashboard-page .rfid-not-linked,
+.passenger-dashboard-page .rfid-linked {
+  gap: 8px;
+}
+
+.passenger-dashboard-page .rfid-not-linked::before,
+.passenger-dashboard-page .rfid-linked::before {
+  width: 8px;
+  height: 8px;
+  animation: rfid-status-pulse-soft 2.2s infinite ease-out;
+}
+
+.passenger-dashboard-page .rfid-link-btn {
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.23),
+    0 10px 28px rgba(37, 99, 235, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+@keyframes rfid-radar-core-soft {
+  0% {
+    box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.16);
+  }
+
+  100% {
+    box-shadow: 0 0 0 10px rgba(147, 197, 253, 0);
+  }
+}
+
+@keyframes rfid-status-pulse-soft {
+  0% {
+    box-shadow: 0 0 0 0 currentColor;
+    opacity: 0.9;
+  }
+
+  100% {
+    box-shadow: 0 0 0 9px transparent;
+    opacity: 0.68;
+  }
+}
+
+.passenger-dashboard-page .recent-trips {
+  gap: 10px;
+}
+
+.passenger-dashboard-page .recent-trips::before {
+  opacity: 0.32;
+  box-shadow: none;
+}
+
+.passenger-dashboard-page .trip-item {
+  padding: 16px 18px 16px 32px;
+  border-color: rgba(226, 232, 240, 0.105);
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.055), rgba(59, 130, 246, 0.025)),
+    rgba(8, 20, 42, 0.34);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.passenger-dashboard-page .trip-item:hover {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.075), rgba(59, 130, 246, 0.035)),
+    rgba(8, 20, 42, 0.4);
+  border-color: rgba(147, 197, 253, 0.16);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.passenger-dashboard-page .trip-item p:first-child::before {
+  background: #93c5fd;
+  box-shadow:
+    0 0 0 4px rgba(147, 197, 253, 0.08),
+    0 0 12px rgba(147, 197, 253, 0.32);
+}
+
+.passenger-dashboard-page .trip-item p:last-child {
+  background: rgba(147, 197, 253, 0.075);
+  border-color: rgba(147, 197, 253, 0.11);
+  box-shadow: none;
+}
+
+.passenger-dashboard-page .recharge-modal-overlay {
+  background: rgba(3, 5, 10, 0.68);
+  backdrop-filter: blur(14px) saturate(0.95);
+  -webkit-backdrop-filter: blur(14px) saturate(0.95);
+}
+
+.passenger-dashboard-page .recharge-modal-box {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.12), rgba(59, 130, 246, 0.045) 44%, rgba(2, 6, 23, 0.36) 82%),
+    rgba(7, 18, 38, 0.78);
+  border-color: rgba(226, 232, 240, 0.13);
+  box-shadow:
+    0 28px 76px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.passenger-dashboard-page .recharge-input {
+  border-color: rgba(226, 232, 240, 0.12);
+  background: rgba(248, 250, 252, 0.06);
+}
+
+.passenger-dashboard-page .recharge-input:focus {
+  border-color: rgba(147, 197, 253, 0.42);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .passenger-dashboard-page .dashboard-section:has(.rfid-status-box) .section-title::before,
+  .passenger-dashboard-page .rfid-not-linked::before,
+  .passenger-dashboard-page .rfid-linked::before {
+    animation: none;
+  }
+}
+
+/* ===== RFID Section Spacing Balance ===== */
+.passenger-dashboard-page .dashboard-section:has(.rfid-status-box) {
+  padding: 24px 28px 28px;
+}
+
+.passenger-dashboard-page .dashboard-section:has(.rfid-status-box) .section-header {
+  margin-bottom: 18px;
+}
+
+.passenger-dashboard-page .dashboard-section:has(.rfid-status-box) .section-title {
+  line-height: 1.12;
+}
+
+.passenger-dashboard-page .dashboard-section:has(.rfid-status-box) .section-title::after {
+  margin-top: 10px;
+}
+
+.passenger-dashboard-page .rfid-status-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  padding: 18px 20px;
+  min-height: 88px;
+}
+
+.passenger-dashboard-page .rfid-not-linked,
+.passenger-dashboard-page .rfid-linked {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.passenger-dashboard-page .rfid-link-btn {
+  padding: 12px 24px;
+  line-height: 1.15;
+}
+
+@media (max-width: 640px) {
+  .passenger-dashboard-page .dashboard-section:has(.rfid-status-box) {
+    padding: 22px 18px 24px;
+  }
+
+  .passenger-dashboard-page .rfid-status-box {
+    flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+    padding: 18px 16px;
+  }
+}
+
+/* ===== Conductor Dashboard Premium Glass System ===== */
+.dashboard-page:not(.passenger-dashboard-page) {
+  isolation: isolate;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 50% -8%, rgba(37, 99, 235, 0.09), transparent 34%),
+    linear-gradient(180deg, #020713 0%, #030712 52%, #020617 100%);
+  --conductor-glass: rgba(8, 18, 38, 0.42);
+  --conductor-edge: rgba(226, 232, 240, 0.12);
+  --conductor-edge-strong: rgba(226, 232, 240, 0.18);
+}
+
+.dashboard-page:not(.passenger-dashboard-page)::before,
+.dashboard-page:not(.passenger-dashboard-page)::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dashboard-page:not(.passenger-dashboard-page)::before {
+  z-index: -2;
+  background-image: url("./assets/side-view-modern-bus-white-background_62972-46821-upscaled.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.32;
+  filter: blur(2.4px) saturate(0.86) contrast(1.02) brightness(0.7);
+  transform: scale(1.02);
+}
+
+.dashboard-page:not(.passenger-dashboard-page)::after {
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(96, 165, 250, 0.055), transparent 32%),
+    radial-gradient(circle at 84% 12%, rgba(34, 211, 238, 0.035), transparent 30%),
+    linear-gradient(135deg, rgba(2, 6, 23, 0.8), rgba(5, 15, 34, 0.64) 44%, rgba(2, 6, 23, 0.86));
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-container {
+  isolation: isolate;
+  padding-block: 28px 36px;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-container::before {
+  content: "";
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  width: min(780px, 68vw);
+  height: 520px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 28% 20%, rgba(96, 165, 250, 0.105), transparent 34%),
+    radial-gradient(circle at 72% 24%, rgba(56, 189, 248, 0.065), transparent 36%);
+  filter: blur(68px);
+  opacity: 0.48;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .particles span {
+  width: 46px;
+  height: 46px;
+  opacity: 0.1;
+  filter: blur(22px);
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.23), transparent 70%);
+  box-shadow: none;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .cursor-glow {
+  width: 138px;
+  height: 138px;
+  background: radial-gradient(circle, rgba(219, 234, 254, 0.095), rgba(96, 165, 250, 0.055) 32%, transparent 70%);
+  filter: blur(28px);
+  opacity: 0.4;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .navbar,
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section,
+.dashboard-page:not(.passenger-dashboard-page) .stat-card,
+.dashboard-page:not(.passenger-dashboard-page) .scan-status-badge,
+.dashboard-page:not(.passenger-dashboard-page) .passenger-card,
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-item,
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-box {
+  border: 1px solid var(--conductor-edge);
+  backdrop-filter: blur(26px) saturate(1.22);
+  -webkit-backdrop-filter: blur(26px) saturate(1.22);
+  box-shadow:
+    0 22px 58px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .navbar,
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section,
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-box {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.105), rgba(59, 130, 246, 0.045) 42%, rgba(2, 6, 23, 0.32) 78%),
+    var(--conductor-glass);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section,
+.dashboard-page:not(.passenger-dashboard-page) .stat-card,
+.dashboard-page:not(.passenger-dashboard-page) .scan-status-badge,
+.dashboard-page:not(.passenger-dashboard-page) .passenger-card,
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-item,
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-box {
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section {
+  margin-bottom: 38px;
+  padding: 26px;
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background 260ms ease;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section::before,
+.dashboard-page:not(.passenger-dashboard-page) .stat-card::before,
+.dashboard-page:not(.passenger-dashboard-page) .scan-status-badge::before,
+.dashboard-page:not(.passenger-dashboard-page) .passenger-card::before,
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-item::before,
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 145px at 50% 0%, rgba(255, 255, 255, 0.055), rgba(147, 197, 253, 0.05) 30%, transparent 64%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), transparent 32%);
+  opacity: 0.72;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .section-content,
+.dashboard-page:not(.passenger-dashboard-page) .section-header,
+.dashboard-page:not(.passenger-dashboard-page) .stat-content,
+.dashboard-page:not(.passenger-dashboard-page) .stat-icon,
+.dashboard-page:not(.passenger-dashboard-page) .conductor-scan-area,
+.dashboard-page:not(.passenger-dashboard-page) .scan-status-badge > *,
+.dashboard-page:not(.passenger-dashboard-page) .passenger-card > *,
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-item > *,
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-box > * {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section:hover,
+.dashboard-page:not(.passenger-dashboard-page) .stat-card:hover,
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-item:hover {
+  border-color: var(--conductor-edge-strong);
+  box-shadow:
+    0 24px 66px rgba(0, 0, 0, 0.27),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section:first-child {
+  padding: 34px 30px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(96, 165, 250, 0.105), transparent 50%),
+    linear-gradient(145deg, rgba(248, 250, 252, 0.12), rgba(59, 130, 246, 0.055) 42%, rgba(2, 6, 23, 0.34) 80%),
+    rgba(7, 18, 38, 0.46);
+  box-shadow:
+    0 26px 72px rgba(0, 0, 0, 0.27),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-title {
+  font-size: clamp(2.35rem, 3.8vw, 3.15rem);
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  text-shadow: 0 12px 32px rgba(0, 0, 0, 0.34);
+  filter: none;
+  background: linear-gradient(135deg, #f8fbff 8%, #bfdbfe 48%, #93c5fd 78%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-subtitle {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.045);
+  border: 1px solid rgba(226, 232, 240, 0.095);
+  color: rgba(226, 232, 240, 0.74);
+  box-shadow: none;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section:first-child .section-content > div > div:last-child {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.065), transparent 48%),
+    rgba(239, 68, 68, 0.075) !important;
+  border: 1px solid rgba(248, 113, 113, 0.24) !important;
+  border-radius: 999px !important;
+  padding: 9px 18px !important;
+  color: #fca5a5 !important;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .esp32-status-badge.online {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.065), transparent 48%),
+    rgba(16, 185, 129, 0.075) !important;
+  border-color: rgba(110, 231, 183, 0.24) !important;
+  color: #86efac !important;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .esp32-status-badge.offline {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.065), transparent 48%),
+    rgba(239, 68, 68, 0.075) !important;
+  border-color: rgba(248, 113, 113, 0.24) !important;
+  color: #fca5a5 !important;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section:first-child .section-content > div > div:last-child span {
+  box-shadow: 0 0 0 0 currentColor;
+  animation: conductor-hardware-pulse 2.2s infinite ease-out !important;
+}
+
+@keyframes conductor-hardware-pulse {
+  0% {
+    box-shadow: 0 0 0 0 currentColor;
+  }
+
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .section-title {
+  font-size: 1.46rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #f8fafc;
+  text-shadow: none;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .section-title::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 1px;
+  margin-top: 9px;
+  border-radius: 999px;
+  opacity: 0.56;
+  background: linear-gradient(90deg, rgba(147, 197, 253, 0.7), transparent);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .section-description,
+.dashboard-page:not(.passenger-dashboard-page) .stat-subtitle,
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-empty {
+  color: rgba(226, 232, 240, 0.68);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .dashboard-section:has(.conductor-scan-area) {
+  padding: 30px;
+  border-color: rgba(147, 197, 253, 0.15);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.095), transparent 50%),
+    linear-gradient(145deg, rgba(248, 250, 252, 0.105), rgba(37, 99, 235, 0.05) 42%, rgba(2, 6, 23, 0.34) 80%),
+    rgba(7, 18, 38, 0.46);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .conductor-scan-area {
+  gap: 18px;
+  padding: 18px 0 10px;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .conductor-scan-area::before {
+  content: "";
+  width: min(520px, 100%);
+  height: 1px;
+  margin-bottom: 2px;
+  background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.24), transparent);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-start-btn,
+.dashboard-page:not(.passenger-dashboard-page) .scan-stop-btn,
+.dashboard-page:not(.passenger-dashboard-page) .fare-btn.deduct {
+  border: 1px solid rgba(226, 232, 240, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 46%),
+    linear-gradient(135deg, #5b8def, #2563eb 58%, #1d4ed8);
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, 0.26),
+    0 12px 30px rgba(37, 99, 235, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.27);
+  letter-spacing: 0;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-stop-btn {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 46%),
+    linear-gradient(135deg, #fb7185, #dc2626 58%, #991b1b);
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, 0.26),
+    0 12px 30px rgba(220, 38, 38, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-start-btn:hover,
+.dashboard-page:not(.passenger-dashboard-page) .scan-stop-btn:hover,
+.dashboard-page:not(.passenger-dashboard-page) .fare-btn.deduct:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.28),
+    0 14px 34px rgba(37, 99, 235, 0.23),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-status-badge {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.075), rgba(59, 130, 246, 0.035)),
+    rgba(8, 21, 45, 0.38);
+  border-color: rgba(147, 197, 253, 0.14);
+  color: rgba(226, 232, 240, 0.76);
+  padding: 12px 22px;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-status-badge.scanning {
+  background:
+    linear-gradient(145deg, rgba(96, 165, 250, 0.11), rgba(59, 130, 246, 0.04)),
+    rgba(8, 21, 45, 0.42);
+  border-color: rgba(147, 197, 253, 0.2);
+  color: #bfdbfe;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-status-badge.error {
+  background:
+    linear-gradient(145deg, rgba(248, 113, 113, 0.11), rgba(127, 29, 29, 0.06)),
+    rgba(21, 12, 22, 0.42);
+  border-color: rgba(248, 113, 113, 0.24);
+  color: #fca5a5;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-pulse-dot {
+  background: #93c5fd;
+  animation: conductor-scan-pulse 1.9s ease-out infinite;
+}
+
+@keyframes conductor-scan-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.22);
+    opacity: 0.95;
+  }
+
+  100% {
+    box-shadow: 0 0 0 10px rgba(147, 197, 253, 0);
+    opacity: 0.72;
+  }
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .stat-card {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.09), rgba(59, 130, 246, 0.04) 46%, rgba(2, 6, 23, 0.28)),
+    rgba(9, 22, 46, 0.42) !important;
+  box-shadow:
+    0 20px 46px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background 260ms ease;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .stat-card:hover,
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-item:hover {
+  transform: translateY(-2px);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .stat-title {
+  color: rgba(219, 234, 254, 0.74);
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .stat-value {
+  color: #f8fbff;
+  letter-spacing: -0.035em;
+  text-shadow: none;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-list {
+  gap: 10px;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-item {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.055), rgba(59, 130, 246, 0.025)),
+    rgba(8, 20, 42, 0.34);
+  border-color: rgba(226, 232, 240, 0.105);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .scan-history-empty {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.045), rgba(59, 130, 246, 0.02)),
+    rgba(8, 20, 42, 0.28);
+  border: 1px solid rgba(226, 232, 240, 0.08);
+  border-radius: 16px;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .shi-name {
+  color: rgba(248, 250, 252, 0.92);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .shi-fare {
+  color: #fca5a5;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .shi-balance {
+  color: #86efac;
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .passenger-card {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.09), transparent 52%),
+    linear-gradient(145deg, rgba(248, 250, 252, 0.08), rgba(16, 185, 129, 0.035)),
+    rgba(8, 28, 32, 0.42);
+  border-color: rgba(110, 231, 183, 0.18);
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .passenger-detail-row,
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-passenger {
+  background: rgba(248, 250, 252, 0.055);
+  border: 1px solid rgba(226, 232, 240, 0.08);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-overlay {
+  background: rgba(3, 5, 10, 0.68);
+  backdrop-filter: blur(14px) saturate(0.95);
+  -webkit-backdrop-filter: blur(14px) saturate(0.95);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-box {
+  background:
+    linear-gradient(145deg, rgba(248, 250, 252, 0.12), rgba(59, 130, 246, 0.045) 44%, rgba(2, 6, 23, 0.36) 82%),
+    rgba(7, 18, 38, 0.8);
+  border-color: rgba(226, 232, 240, 0.13);
+  box-shadow:
+    0 28px 76px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .fare-modal-avatar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 44%),
+    linear-gradient(135deg, #5b8def, #2563eb);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .fare-input-wrapper {
+  background: rgba(248, 250, 252, 0.06);
+  border-color: rgba(226, 232, 240, 0.12);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .fare-input-wrapper:focus-within {
+  border-color: rgba(147, 197, 253, 0.42);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.dashboard-page:not(.passenger-dashboard-page) .fare-btn.cancel {
+  background: rgba(248, 250, 252, 0.055);
+  border-color: rgba(226, 232, 240, 0.11);
+}
+
+@media (max-width: 768px) {
+  .dashboard-page:not(.passenger-dashboard-page) .dashboard-section:first-child {
+    padding: 28px 22px;
+  }
+
+  .dashboard-page:not(.passenger-dashboard-page) .dashboard-section:has(.conductor-scan-area) {
+    padding: 24px 18px;
+  }
+
+  .dashboard-page:not(.passenger-dashboard-page) .scan-history-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-page:not(.passenger-dashboard-page) .scan-pulse-dot,
+  .dashboard-page:not(.passenger-dashboard-page) .dashboard-section:first-child .section-content > div > div:last-child span {
+    animation: none !important;
+  }
+}

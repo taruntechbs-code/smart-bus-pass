@@ -363,6 +363,7 @@ export default function Conductor() {
                                 </div>
                                 {/* ESP32 Connection Badge */}
                                 <motion.div
+                                    className={`esp32-status-badge ${esp32Connected ? "online" : "offline"}`}
                                     initial={{ opacity: 0, scale: 0.8 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     style={{

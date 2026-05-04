@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import PremiumCursor from "../components/PremiumCursor";
@@ -16,6 +16,7 @@ import { io } from "socket.io-client";
 export default function Passenger() {
     const { user, loading: authLoading } = useAuth();
     const navigate = useNavigate();
+    const liquidFrame = useRef(null);
 
     const [wallet, setWallet] = useState({ balance: 0 });
     const [trips, setTrips] = useState([]);
@@ -25,6 +26,63 @@ export default function Passenger() {
     const [showRechargeModal, setShowRechargeModal] = useState(false);
     const [rechargeAmount, setRechargeAmount] = useState("");
     const [waitingForScan, setWaitingForScan] = useState(false);
+
+    useEffect(() => {
+        const page = document.querySelector(".passenger-dashboard-page");
+        if (!page) return;
+
+        let cursorX = window.innerWidth / 2;
+        let cursorY = window.innerHeight / 2;
+
+        const glassSelector = [
+            ".navbar",
+            ".dashboard-section",
+            ".stat-card",
+            ".trip-item",
+            ".rfid-status-box",
+            ".quick-btn",
+            ".recharge-modal-box",
+        ].join(", ");
+
+        const paintLiquidGlass = () => {
+            page.style.setProperty("--cursor-x", `${cursorX}px`);
+            page.style.setProperty("--cursor-y", `${cursorY}px`);
+
+            page.querySelectorAll(glassSelector).forEach((element) => {
+                const rect = element.getBoundingClientRect();
+                const localX = cursorX - rect.left;
+                const localY = cursorY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const distance = Math.hypot(localX - centerX, localY - centerY);
+                const maxDistance = Math.hypot(rect.width, rect.height) * 0.72;
+                const glow = Math.max(0.18, 1 - distance / maxDistance);
+
+                element.style.setProperty("--mx", `${localX}px`);
+                element.style.setProperty("--my", `${localY}px`);
+                element.style.setProperty("--liquid-alpha", glow.toFixed(3));
+            });
+
+            liquidFrame.current = null;
+        };
+
+        const handlePointerMove = (event) => {
+            cursorX = event.clientX;
+            cursorY = event.clientY;
+
+            if (!liquidFrame.current) {
+                liquidFrame.current = requestAnimationFrame(paintLiquidGlass);
+            }
+        };
+
+        paintLiquidGlass();
+        window.addEventListener("pointermove", handlePointerMove, { passive: true });
+
+        return () => {
+            window.removeEventListener("pointermove", handlePointerMove);
+            if (liquidFrame.current) cancelAnimationFrame(liquidFrame.current);
+        };
+    }, [loading, showRechargeModal]);
 
     useEffect(() => {
         const socket = io("http://localhost:5000");
@@ -164,7 +222,7 @@ export default function Passenger() {
     if (authLoading) return null;
 
     return (
-        <div className="dashboard-page">
+        <div className="dashboard-page passenger-dashboard-page">
             <PremiumCursor />
             <Particles />
             <Navbar />
